@@ -1,7 +1,14 @@
+import Sidebar from "@/components/Sidebar";
+
 export default function Home() {
   return (
-    <>
-      <h1>Hello World</h1>
-    </>
+    <main className="flex min-h-screen mx-auto">
+      {/* Sidebar */}
+      <Sidebar />
+
+      {/* Feed */}
+
+      {/* Widgets */}
+    </main>
   );
 }
