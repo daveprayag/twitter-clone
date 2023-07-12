@@ -5,10 +5,12 @@ import {
   BellIcon,
   BookmarkIcon,
   ClipboardIcon,
-  HashtagIcon,
-  InboxIcon,
   UserIcon,
   EllipsisHorizontalIcon,
+  MagnifyingGlassIcon,
+  EnvelopeIcon,
+  CheckBadgeIcon,
+  EllipsisHorizontalCircleIcon,
 } from "@heroicons/react/24/outline";
 
 export default function Sidebar() {
@@ -27,16 +29,18 @@ export default function Sidebar() {
       {/* Menu */}
       <div className="mt-4 mb-2.5 xl:items-start">
         <SidebarMenuItem text="Home" Icon={HomeIcon} />
-        <SidebarMenuItem text="Explore" Icon={HashtagIcon} />
+        <SidebarMenuItem text="Explore" Icon={MagnifyingGlassIcon} />
         <SidebarMenuItem text="Notifications" Icon={BellIcon} />
-        <SidebarMenuItem text="Messages" Icon={InboxIcon} />
-        <SidebarMenuItem text="Bookmarks" Icon={BookmarkIcon} />
+        <SidebarMenuItem text="Messages" Icon={EnvelopeIcon} />
         <SidebarMenuItem text="Lists" Icon={ClipboardIcon} />
+        <SidebarMenuItem text="Bookmarks" Icon={BookmarkIcon} />
+        <SidebarMenuItem text="Verified" Icon={CheckBadgeIcon} />
         <SidebarMenuItem text="Profile" Icon={UserIcon} />
+        <SidebarMenuItem text="More" Icon={EllipsisHorizontalCircleIcon} />{" "}
       </div>
 
       {/* Button */}
-      <button className="bg-blue-400 text-white rounded-full w-56 h-12 font-bold shadow-md hover:brightness-95 text-lg hidden xl:inline">
+      <button className="bg-[#1da1f2] text-white rounded-full w-56 h-12 font-bold shadow-md hover:brightness-95 text-lg hidden xl:inline">
         Tweet
       </button>
 
