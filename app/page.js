@@ -1,13 +1,14 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Feed from "@/components/Feed";
 import Sidebar from "@/components/Sidebar";
 import Widgets from "../components/Widgets";
 
 export default function Home() {
   const [newsResults, setNewsResults] = useState([]);
+  const [randomUsersResults, setRandomUsersResults] = useState([]);
 
-  const fetchData = async () => {
+  const fetchNews = async () => {
     try {
       const response = await fetch(
         "https://saurav.tech/NewsAPI/top-headlines/category/sports/in.json"
@@ -19,7 +20,22 @@ export default function Home() {
     }
   };
 
-  fetchData();
+  const fetchRandomUserData = async () => {
+    try {
+      const response = await fetch(
+        "https://randomuser.me/api/?results=30&inc=name,login,picture"
+      );
+      const data = await response.json();
+      setRandomUsersResults(data.results);
+    } catch (error) {
+      console.log("Error fetching random user data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchNews();
+    fetchRandomUserData();
+  }, []);
 
   return (
     <main className="flex min-h-screen mx-auto">
@@ -28,23 +44,11 @@ export default function Home() {
       {/* Feed */}
       <Feed />
       {/* Widgets */}
-      <Widgets newsResults={newsResults} />
+      <Widgets
+        newsResults={newsResults}
+        randomUsersResults={randomUsersResults}
+      />
       {/* Modal */}
     </main>
   );
 }
-
-// https://saurav.tech/NewsAPI/top-headlines/category/sport/in.json
-
-// async function getData() {
-//   const newsResults = await fetch(
-//     "https://saurav.tech/NewsAPI/top-headlines/category/business/in.json"
-//   ).then((res) => res.json());
-//   // console.log(newsResults);
-//   return {
-//     props: {
-//       newsResults,
-//     },
-//   };
-// }
-// getData();
