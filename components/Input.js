@@ -1,6 +1,11 @@
+"use client";
 import { FaceSmileIcon, PhotoIcon } from "@heroicons/react/24/outline";
+import { useSession } from "next-auth/react";
 
 export default function Input() {
+  // const { data: session } = useSession();
+  // console.log(session);
+
   return (
     <div className="flex border-b border-gray-200 p-3 space-x-1">
       <img
