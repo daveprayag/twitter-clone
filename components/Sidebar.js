@@ -23,7 +23,7 @@ import { useRouter } from "next/navigation";
 export default function Sidebar() {
   const router = useRouter();
   const [currentUser, setCurrentUser] = useRecoilState(userState);
-  // console.log(currentUser);
+  console.log(currentUser);
   const auth = getAuth();
 
   useEffect(() => {
@@ -50,10 +50,11 @@ export default function Sidebar() {
       {/* Twitter Logo */}
       <div className="hoverEffect p-0 hover:bg-blue-100 xl:px-1 my-2 items-center py-2">
         <Image
-          width="30"
+          width="35"
           height="60"
           alt="Logo of Twitter"
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/X_logo_2023_UPDATE.svg/300px-X_logo_2023_UPDATE.svg.png"
+          className="ml-2"
         ></Image>
       </div>
 
@@ -84,14 +85,14 @@ export default function Sidebar() {
           {/* Mini Profile */}
           <div className="hoverEffect text-gray-700 flex items-center justify-center xl:justify-start mt-auto">
             <img
-              onClick={onSignOut}
               src={currentUser?.userImg}
+              onClick={onSignOut}
               alt="user-img"
               className="h-10 w-10 rounded-full xl:mr-2"
             />
             <div className="hoverEffect leading-5 hidden xl:inline">
               <h4 className="font-bold">{currentUser?.name}</h4>
-              <p className="text-gray-500">{currentUser?.username}</p>
+              <p className="text-gray-500">@{currentUser?.username}</p>
             </div>
             <EllipsisHorizontalIcon className="h-5 xl:ml-8 hidden xl:inline" />
           </div>

@@ -1,11 +1,10 @@
-"use client";
 import { FaceSmileIcon, PhotoIcon } from "@heroicons/react/24/outline";
-import { useSession } from "next-auth/react";
+import { db, storage } from "@/firebase";
+import { useRecoilState } from "recoil";
+import { userState } from "@/app/atom/userAtom";
 
 export default function Input() {
-  // const { data: session } = useSession();
-  // console.log(session);
-
+  const [currentUser, setCurrentUser] = useRecoilState(userState);
   return (
     <div className="flex border-b border-gray-200 p-3 space-x-1">
       <img
