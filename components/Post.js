@@ -40,12 +40,12 @@ export default function Post({ post, id }) {
     );
   }, [db]);
 
-  // useEffect(() => {
-  //   const unsubscribe = onSnapshot(
-  //     collection(db, "posts", id, "comments"),
-  //     (snapshot) => setComments(snapshot.docs)
-  //   );
-  // }, [db]);
+  useEffect(() => {
+    const unsubscribe = onSnapshot(
+      collection(db, "posts", post.id, "comments"),
+      (snapshot) => setComments(snapshot.docs)
+    );
+  }, [db]);
 
   useEffect(() => {
     setHasLiked(likes.findIndex((like) => like.id === currentUser?.uid) !== -1);
@@ -65,15 +65,15 @@ export default function Post({ post, id }) {
     }
   }
 
-  // async function deletePost() {
-  //   if (window.confirm("Are you sure you want to delete this post?")) {
-  //     deleteDoc(doc(db, "posts", id));
-  //     if (post.data().image) {
-  //       deleteObject(ref(storage, `posts/${id}/image`));
-  //     }
-  //     router.push("/");
-  //   }
-  // }
+  async function deletePost() {
+    if (window.confirm("Are you sure you want to delete this post?")) {
+      deleteDoc(doc(db, "posts", post.id));
+      if (post.data().image) {
+        deleteObject(ref(storage, `posts/${post.id}/image`));
+      }
+      router.push("/");
+    }
+  }
 
   return (
     <div className="flex p-3 cursor-pointer border-b border-gray-200">
@@ -137,7 +137,7 @@ export default function Post({ post, id }) {
           </div>
           {currentUser?.uid === post?.data()?.id && (
             <TrashIcon
-              // onClick={deletePost}
+              onClick={deletePost}
               className="h-9 w-9 hoverEffect p-2 hover:text-red-600 hover:bg-red-100"
             />
           )}
