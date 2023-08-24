@@ -6,6 +6,8 @@ import {
   ShareIcon,
   TrashIcon,
 } from "@heroicons/react/24/outline";
+
+import { HeartIcon as HeartIconFilled } from "@heroicons/react/20/solid";
 import {
   collection,
   deleteDoc,
@@ -31,12 +33,12 @@ export default function Post({ post, id }) {
   const [currentUser] = useRecoilState(userState);
   const router = useRouter();
 
-  // useEffect(() => {
-  //   const unsubscribe = onSnapshot(
-  //     collection(db, "posts", id, "likes"),
-  //     (snapshot) => setLikes(snapshot.docs)
-  //   );
-  // }, [db]);
+  useEffect(() => {
+    const unsubscribe = onSnapshot(
+      collection(db, "posts", post.id, "likes"),
+      (snapshot) => setLikes(snapshot.docs)
+    );
+  }, [db]);
 
   // useEffect(() => {
   //   const unsubscribe = onSnapshot(
@@ -45,23 +47,23 @@ export default function Post({ post, id }) {
   //   );
   // }, [db]);
 
-  // useEffect(() => {
-  //   setHasLiked(likes.findIndex((like) => like.id === currentUser?.uid) !== -1);
-  // }, [likes, currentUser]);
+  useEffect(() => {
+    setHasLiked(likes.findIndex((like) => like.id === currentUser?.uid) !== -1);
+  }, [likes, currentUser]);
 
-  // async function likePost() {
-  //   if (currentUser) {
-  //     if (hasLiked) {
-  //       await deleteDoc(doc(db, "posts", id, "likes", currentUser?.uid));
-  //     } else {
-  //       await setDoc(doc(db, "posts", id, "likes", currentUser?.uid), {
-  //         username: currentUser?.username,
-  //       });
-  //     }
-  //   } else {
-  //     router.push("/auth/signin");
-  //   }
-  // }
+  async function likePost() {
+    if (currentUser) {
+      if (hasLiked) {
+        await deleteDoc(doc(db, "posts", post.id, "likes", currentUser?.uid));
+      } else {
+        await setDoc(doc(db, "posts", post.id, "likes", currentUser?.uid), {
+          username: currentUser?.username,
+        });
+      }
+    } else {
+      router.push("/auth/signin");
+    }
+  }
 
   // async function deletePost() {
   //   if (window.confirm("Are you sure you want to delete this post?")) {
@@ -142,12 +144,12 @@ export default function Post({ post, id }) {
           <div className="flex items-center">
             {hasLiked ? (
               <HeartIconFilled
-                // onClick={likePost}
+                onClick={likePost}
                 className="h-9 w-9 hoverEffect p-2 text-red-600 hover:bg-red-100"
               />
             ) : (
               <HeartIcon
-                // onClick={likePost}
+                onClick={likePost}
                 className="h-9 w-9 hoverEffect p-2 hover:text-red-600 hover:bg-red-100"
               />
             )}
