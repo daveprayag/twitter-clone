@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Feed from "@/components/Feed";
 import Sidebar from "@/components/Sidebar";
 import Widgets from "../components/Widgets";
+import CommentModal from "@/components/CommentModal";
 
 export default function Home() {
   const [newsResults, setNewsResults] = useState([]);
@@ -49,6 +50,7 @@ export default function Home() {
         randomUsersResults={randomUsersResults}
       />
       {/* Modal */}
+      <CommentModal />
     </main>
   );
 }
