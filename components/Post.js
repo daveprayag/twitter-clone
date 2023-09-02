@@ -16,13 +16,13 @@ import {
   setDoc,
 } from "firebase/firestore";
 import Moment from "react-moment";
-import { userState } from "@/app/atom/userAtom";
+import { userState } from "../atom/userAtom";
 import { db, storage } from "../firebase";
 import { useState, useEffect } from "react";
 import { deleteObject, ref } from "firebase/storage";
 import { useRecoilState } from "recoil";
-import { modalState, postIdState } from "@/app/atom/modalAtom";
-import { useRouter } from "next/navigation";
+import { modalState, postIdState } from "../atom/modalAtom";
+import { useRouter } from "next/router";
 
 export default function Post({ post, id }) {
   const [likes, setLikes] = useState([]);

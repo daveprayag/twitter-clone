@@ -1,5 +1,5 @@
-"use client";
-import { db } from "../../../firebase";
+/* eslint-disable @next/next/no-img-element */
+import { db } from "../../firebase";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { doc, serverTimestamp, setDoc, getDoc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
@@ -35,7 +35,7 @@ export default function Signin() {
         <div className="flex flex-col items-center">
           <img
             className="w-42 h-40 object-cover"
-            src="https://logolook.net/wp-content/uploads/2021/06/Twitter-Log%D0%BE.png"
+            src="https://about.twitter.com/content/dam/about-twitter/x/brand-toolkit/logo-black.png.twimg.1920.png"
             alt="twitter logo"
           />
           <p className="text-center text-sm italic my-10">

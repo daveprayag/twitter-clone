@@ -1,13 +1,10 @@
-"use client";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import Head from "next/head";
-import CommentModal from "../../../components/CommentModal";
-import Sidebar from "../../../components/Sidebar";
-import Widgets from "../../../components/Widgets";
-import Post from "../../../components/Post";
-import Comments from "../../../components/Comments";
-import { useRouter } from "next/navigation";
-import { useSearchParams } from "next/navigation";
+import CommentModal from "../../components/CommentModal";
+import Sidebar from "../../components/Sidebar";
+import Widgets from "../../components/Widgets";
+import Post from "../../components/Post";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import {
   collection,
@@ -16,56 +13,23 @@ import {
   orderBy,
   query,
 } from "firebase/firestore";
-import { db } from "../../../firebase";
-
+import { db } from "../../firebase";
+import Comments from "../../components/Comments";
 import { AnimatePresence, motion } from "framer-motion";
 
-export default function PostPage() {
+export default function PostPage({ newsResults, randomUsersResults }) {
   const router = useRouter();
-  const { id } = useSearchParams();
+  const { id } = router.query;
   const [post, setPost] = useState();
   const [comments, setComments] = useState([]);
-  const [newsResults, setNewsResults] = useState([]);
-  const [randomUsersResults, setRandomUsersResults] = useState([]);
-
-  const fetchNews = async () => {
-    try {
-      const response = await fetch(
-        "https://saurav.tech/NewsAPI/top-headlines/category/sports/in.json"
-      );
-      const data = await response.json();
-      setNewsResults(data.articles);
-    } catch (error) {
-      console.log("Error fetching news data:", error);
-    }
-  };
-
-  const fetchRandomUserData = async () => {
-    try {
-      const response = await fetch(
-        "https://randomuser.me/api/?results=30&inc=name,login,picture"
-      );
-      const data = await response.json();
-      setRandomUsersResults(data.results);
-    } catch (error) {
-      console.log("Error fetching random user data:", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchNews();
-    fetchRandomUserData();
-  }, []);
 
   // get the post data
-
   useEffect(
     () => onSnapshot(doc(db, "posts", id), (snapshot) => setPost(snapshot)),
     [db, id]
   );
 
   // get comments of the post
-
   useEffect(() => {
     onSnapshot(
       query(
@@ -93,7 +57,7 @@ export default function PostPage() {
         <div className="xl:ml-[370px] border-l border-r border-gray-200  xl:min-w-[576px] sm:ml-[73px] flex-grow max-w-xl">
           <div className="flex items-center space-x-2  py-2 px-3 sticky top-0 z-50 bg-white border-b border-gray-200">
             <div className="hoverEffect" onClick={() => router.push("/")}>
-              <ArrowLeftIcon className="h-5 " />
+              <ArrowLeftIcon className="h-6 items-center" />
             </div>
             <h2 className="text-lg sm:text-xl font-bold cursor-pointer">
               Tweet
@@ -138,4 +102,33 @@ export default function PostPage() {
       </main>
     </div>
   );
+}
+
+// https://saurav.tech/NewsAPI/top-headlines/category/business/us.json
+
+export async function getServerSideProps() {
+  const newsResults = await fetch(
+    "https://saurav.tech/NewsAPI/top-headlines/category/sports/in.json"
+  ).then((res) => res.json());
+
+  // Who to follow section
+
+  let randomUsersResults = [];
+
+  try {
+    const res = await fetch(
+      "https://randomuser.me/api/?results=30&inc=name,login,picture"
+    );
+
+    randomUsersResults = await res.json();
+  } catch (e) {
+    randomUsersResults = [];
+  }
+
+  return {
+    props: {
+      newsResults,
+      randomUsersResults,
+    },
+  };
 }

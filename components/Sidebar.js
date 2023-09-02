@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @next/next/no-img-element */
 import Image from "next/image";
 import SidebarMenuItem from "./SidebarMenuItem";
 import { HomeIcon } from "@heroicons/react/20/solid";
@@ -12,18 +14,18 @@ import {
   CheckBadgeIcon,
   EllipsisHorizontalCircleIcon,
 } from "@heroicons/react/24/outline";
-import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import { useEffect } from "react";
 import { db } from "../firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { useRecoilState } from "recoil";
-import { userState } from "@/app/atom/userAtom";
-import { useRouter } from "next/navigation";
+import { userState } from "../atom/userAtom";
+import { useRouter } from "next/router";
 
 export default function Sidebar() {
   const router = useRouter();
   const [currentUser, setCurrentUser] = useRecoilState(userState);
-  console.log(currentUser);
   const auth = getAuth();
 
   useEffect(() => {
@@ -48,19 +50,23 @@ export default function Sidebar() {
   return (
     <div className="hidden sm:flex flex-col p-2 xl:items-start fixed h-full xl:ml-24">
       {/* Twitter Logo */}
-      <div className="hoverEffect p-0 hover:bg-blue-100 xl:px-1 my-2 items-center py-2">
+      <div className="hoverEffect hover:bg-blue-100 xl:pl-1 md:pt-2 md:pl-1 md:items-center">
         <Image
-          width="35"
-          height="60"
+          width="30"
+          height="30"
           alt="Logo of Twitter"
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/X_logo_2023_UPDATE.svg/300px-X_logo_2023_UPDATE.svg.png"
+          src="https://about.twitter.com/content/dam/about-twitter/x/brand-toolkit/logo-black.png.twimg.1920.png"
           className="ml-2"
         ></Image>
       </div>
 
       {/* Menu */}
-      <div className="mt-4 mb-2.5 xl:items-start">
-        <SidebarMenuItem text="Home" Icon={HomeIcon} />
+      <div className="mt-4 mb-2.5 xl:items-start ">
+        <SidebarMenuItem
+          text="Home"
+          Icon={HomeIcon}
+          onClick={() => router.push("/")}
+        />
         <SidebarMenuItem text="Explore" Icon={MagnifyingGlassIcon} />
         {currentUser && (
           <>

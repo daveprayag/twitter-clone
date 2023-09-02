@@ -18,9 +18,9 @@ import {
 import { db } from "../firebase";
 import { useState, useEffect } from "react";
 import { useRecoilState } from "recoil";
-import { modalState, postIdState } from "../app/atom/modalAtom";
+import { modalState, postIdState } from "../atom/modalAtom";
 import { useRouter } from "next/router";
-import { userState } from "../app/atom/userAtom";
+import { userState } from "../atom/userAtom";
 
 export default function Comments({ comment, commentId, originalPostId }) {
   const [likes, setLikes] = useState([]);
@@ -101,6 +101,7 @@ export default function Comments({ comment, commentId, originalPostId }) {
               {comment?.name}
             </h4>
             <span className="text-sm sm:text-[15px]">@{comment?.username}</span>
+            <span>·</span>
             <span className="text-sm sm:text-[15px] hover:underline">
               <Moment fromNow>{comment?.timestamp?.toDate()}</Moment>
             </span>

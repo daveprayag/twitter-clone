@@ -1,8 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["help.twitter.com", "upload.wikimedia.org"],
+    domains: ["about.twitter.com", "upload.wikimedia.org"],
   },
+  reactStrictMode: true,
+  swcMinify: true,
 };
 
 module.exports = nextConfig;

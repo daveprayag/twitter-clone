@@ -1,7 +1,8 @@
-"use client";
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @next/next/no-img-element */
 import { useRecoilState } from "recoil";
-import { modalState, postIdState } from "@/app/atom/modalAtom";
-import { useRouter } from "next/navigation";
+import { modalState, postIdState } from "../atom/modalAtom";
+import { useRouter } from "next/router";
 import ReactModal from "react-modal";
 import {
   FaceSmileIcon,
@@ -19,7 +20,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import Moment from "react-moment";
-import { userState } from "@/app/atom/userAtom";
+import { userState } from "../atom/userAtom";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
 export default function CommentModal() {
   const [open, setOpen] = useRecoilState(modalState);

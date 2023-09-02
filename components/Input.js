@@ -1,11 +1,12 @@
+/* eslint-disable @next/next/no-img-element */
 import {
   FaceSmileIcon,
   PhotoIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { db, storage } from "@/firebase";
+import { db, storage } from "../firebase";
 import { useRecoilState } from "recoil";
-import { userState } from "@/app/atom/userAtom";
+import { userState } from "../atom/userAtom";
 import { useState, useRef } from "react";
 import { signOut, getAuth } from "firebase/auth";
 import {
@@ -94,11 +95,12 @@ export default function Input() {
               <div className="relative">
                 <XMarkIcon
                   onClick={() => setSelectedFile(null)}
-                  className="border h-7 text-black absolute cursor-pointer shadow-md border-white m-1 rounded-full"
+                  className="border h-7 text-white absolute cursor-pointer shadow-md border-white m-1 rounded-full"
                 />
                 <img
                   src={selectedFile}
                   className={`${loading && "animate-pulse"}`}
+                  alt="post-img"
                 />
               </div>
             )}
@@ -118,7 +120,7 @@ export default function Input() {
                         onChange={addImageToPost}
                       />
                     </div>
-                    <FaceSmileIcon className="h-10 w-10 hoverEffect p-2 text-sky-500 hover:bg-sky-100" />
+                    {/* <FaceSmileIcon className="h-10 w-10 hoverEffect p-2 text-sky-500 hover:bg-sky-100" /> */}
                   </div>
                   <button
                     onClick={sendPost}
