@@ -102,7 +102,7 @@ export default function Sidebar() {
       ) : (
         <button
           onClick={() => router.push("/auth/signin")}
-          className="bg-blue-400 text-white rounded-full w-36 h-12 font-bold shadow-md hover:brightness-95 text-lg hidden xl:inline"
+          className="bg-[#1da1f2] text-white rounded-full w-36 h-12 font-bold shadow-md hover:brightness-95 text-lg hidden xl:inline"
         >
           Sign in
         </button>
