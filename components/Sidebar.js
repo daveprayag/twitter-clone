@@ -61,13 +61,13 @@ export default function Sidebar() {
       </div>
 
       {/* Menu */}
-      <div className="mt-4 mb-2.5 xl:items-start ">
+      <div className="mt-4 mb-2.5 xl:items-start text-gray-700">
         <SidebarMenuItem
           text="Home"
           Icon={HomeIcon}
           onClick={() => router.push("/")}
         />
-        <SidebarMenuItem text="Explore" Icon={MagnifyingGlassIcon} />
+        {/* <SidebarMenuItem text="Explore" Icon={MagnifyingGlassIcon} />
         {currentUser && (
           <>
             <SidebarMenuItem text="Notifications" Icon={BellIcon} />
@@ -78,7 +78,7 @@ export default function Sidebar() {
             <SidebarMenuItem text="Profile" Icon={UserIcon} />
             <SidebarMenuItem text="More" Icon={EllipsisHorizontalCircleIcon} />
           </>
-        )}
+        )} */}
       </div>
 
       {/* Button */}
